@@ -1,20 +1,32 @@
 package com.example.projetocloneinterface
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-
+import com.example.projetocloneinterface.databinding.ActivityRecuperarSenhaBinding
 class RecuperarSenhaActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRecuperarSenhaBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_recuperar_senha)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        binding = ActivityRecuperarSenhaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.buttonRedefinirSenha.setOnClickListener {
+            val email = binding.editTextEmailRecSen.text.toString()
+
+            if(email.isEmpty()) {
+                binding.textInputLayoutEmailRecSen.error = "Digite seu email"
+            } else {
+                binding.textInputLayoutEmailRecSen.error = null
+                Toast.makeText(this, "Email enviado!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.textViewVoltar.setOnClickListener {
+            finish()
         }
     }
 }
